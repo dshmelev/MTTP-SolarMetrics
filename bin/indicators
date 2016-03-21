@@ -2,15 +2,17 @@
 
 require "bundler/setup"
 require 'rmodbus'
+require 'simple_config'
 
-ModBus::TCPClient.new('192.168.0.10', 502) do |cl|
+ModBus::TCPClient.new(SimpleConfig.modbus.host, SimpleConfig.modbus.port) do |cl|
   cl.with_slave(1) do |slave|
-#    PowerOut = slave.holding_registers[59-1]
-#    PowerIn  = slave.holding_registers[60-1]
-    @sweep_pmax = slave.holding_registers[61-1]
-#    Sweep_Vmp = slave.holding_registers[62-1]
-#    Sweep_Voc = slave.holding_registers[63-1]
+    @sweep_pmax = slave.holding_registers[SimpleConfig.modbus.reg]
   end
 end
+
+client = Mysql2::Client.new :host => SimpleConfig.mysql.host,
+                            :username => SimpleConfig.mysql.user,
+                            :database => SimpleConfig.mysql.pass
+results = client.query("INSERT INTO #{SimpleConfig.mysql.table} (value) values (#{@sweep_pmax})")
 
 puts @sweep_pmax

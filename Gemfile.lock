@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/onetwotrip/SimpleConfig
+  revision: 6c8ff3624da6db56ef668060be661d5e0dddacde
+  specs:
+    SimpleConfig (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -11,6 +17,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  SimpleConfig!
   mysql2
   rmodbus
   serialport
