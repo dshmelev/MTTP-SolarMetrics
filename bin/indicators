@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require 'rmodbus'
+
+ModBus::TCPClient.new('192.168.0.10', 502) do |cl|
+  cl.with_slave(1) do |slave|
+#    PowerOut = slave.holding_registers[59-1]
+#    PowerIn  = slave.holding_registers[60-1]
+    @sweep_pmax = slave.holding_registers[61-1]
+#    Sweep_Vmp = slave.holding_registers[62-1]
+#    Sweep_Voc = slave.holding_registers[63-1]
+  end
+end
+
+puts @sweep_pmax
