@@ -7,7 +7,7 @@ require 'mysql2'
 
 ModBus::TCPClient.new(SimpleConfig.modbus.host, SimpleConfig.modbus.port) do |cl|
   cl.with_slave(1) do |slave|
-    @sweep_pmax = slave.holding_registers[60]
+    @sweep_pmax = slave.holding_registers[60][0]
   end
 end
 
@@ -15,6 +15,9 @@ client = Mysql2::Client.new :host => SimpleConfig.mysql.host,
                             :username => SimpleConfig.mysql.user,
                             :password => SimpleConfig.mysql.pass,
                             :database => SimpleConfig.mysql.dbase
-results = client.query("INSERT INTO #{SimpleConfig.mysql.table} (value) values (#{@sweep_pmax})")
+query = "INSERT INTO #{SimpleConfig.mysql.table} (value) values (#{@sweep_pmax})"
+puts "QUERY: #{query}"
+puts "PMAX: #{@sweep_pmax}"
 
-puts @sweep_pmax
+results = client.query(query)
+

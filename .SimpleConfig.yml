@@ -2,7 +2,6 @@
 modbus:
   host: <%= ENV['MB_HOST'] %>
   port: 502
-  req: 60
 mysql:
   host: <%= ENV['MYSQL_HOST'] %>
   user: <%= ENV['MYSQL_USER'] %>
