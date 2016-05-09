@@ -8,6 +8,11 @@ GEM
   remote: https://rubygems.org/
   specs:
     gserver (0.0.1)
+    little-plugger (1.1.4)
+    logging (2.1.0)
+      little-plugger (~> 1.1)
+      multi_json (~> 1.10)
+    multi_json (1.12.0)
     mysql2 (0.4.4)
     rmodbus (1.2.7)
       gserver (~> 0.0)
@@ -18,6 +23,7 @@ PLATFORMS
 
 DEPENDENCIES
   SimpleConfig!
+  logging
   mysql2
   rmodbus
   serialport
