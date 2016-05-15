@@ -6,7 +6,7 @@ require 'simple_config'
 require 'mysql2'
 require 'logging'
 
-logger = Logging.logger['example_logger']
+logger = Logging.logger['MTTP-SolarMetrics']
 logger.level = :info
 
 logger.add_appenders \
