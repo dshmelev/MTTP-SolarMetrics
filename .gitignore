@@ -8,3 +8,4 @@
 /tmp/
 *.swp
 *.log
+backend/_api/settings.php
