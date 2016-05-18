@@ -1,4 +1,5 @@
 <?php
+$time_start = microtime(true);
 include '../settings.php';
 include 'helpers.php';
 
@@ -37,4 +38,7 @@ mysql_close($link);
 
 echo_to_json( array_reverse( reduce_array($output, $col) ) );
 
+$time_end = microtime(true);
+$execution_time = ($time_end - $time_start) * 1000;
+header('API-Response-Time: ' . round($execution_time,2) . 'ms');
 ?>
