@@ -4,19 +4,26 @@ require "bundler/setup"
 require 'rmodbus'
 require 'simple_config'
 require 'mysql2'
-require 'logging'
+require 'logger'
 
-logger = Logging.logger['MTTP-SolarMetrics']
-logger.level = :info
 
-logger.add_appenders \
-    Logging.appenders.stdout,
-    Logging.appenders.file('indicators.log')
+logger = Logger.new($stdout)
+logger.level = Logger::DEBUG
+logger.datetime_format = "%Y-%m-%d %H:%M:%S"
+logger.formatter = proc do |severity, datetime, progname, msg|
+    "[#{datetime}] [#{severity}]: #{msg}\n"
+end
 
-ModBus::TCPClient.new(SimpleConfig.modbus.host, SimpleConfig.modbus.port) do |cl|
-  cl.with_slave(1) do |slave|
-    @sweep_pmax = slave.holding_registers[60][0]
+begin
+  ModBus::TCPClient.new(SimpleConfig.modbus.host, SimpleConfig.modbus.port) do |cl|
+    cl.with_slave(1) do |slave|
+      @sweep_pmax = slave.holding_registers[60][0]
+    end
   end
+rescue ModBus::Errors::ModBusTimeout, Errno::ECONNREFUSED => e
+  logger.fatal "Caught #{e}"
+  logger.fatal "Connection failed to #{SimpleConfig.modbus.host}:#{SimpleConfig.modbus.port}"
+  exit
 end
 
 client = Mysql2::Client.new :host => SimpleConfig.mysql.host,
