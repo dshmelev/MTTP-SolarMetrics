@@ -1,4 +1,7 @@
 <?php
+# Headers
+header('Access-Control-Allow-Origin: *');
+
 $time_start = microtime(true);
 include '../settings.php';
 include 'helpers.php';
