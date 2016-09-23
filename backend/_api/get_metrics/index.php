@@ -6,6 +6,9 @@ $time_start = microtime(true);
 include '../settings.php';
 include 'helpers.php';
 
+# Constants
+$MULTIPLICATOR = 1.53;
+
 $num = $_GET['num'];
 $col = $_GET['col'];
 isset($col) OR $col = 15;
@@ -33,7 +36,8 @@ $result = mysql_query($query) or fails_with_json('mysql_query: ' . mysql_error()
 
 $output = [];
 while ($r = mysql_fetch_row($result, MYSQL_ASSOC)) {
-    array_push($output, array( $r['timestamp'] * 1000, (int) $r['value']  ) );
+  $value = $r['value'] * $MULTIPLICATOR;
+  array_push($output, array( $r['timestamp'] * 1000, (int) $value ) );
 }
 
 mysql_free_result($result);
