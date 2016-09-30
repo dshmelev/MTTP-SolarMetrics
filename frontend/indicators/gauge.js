@@ -1,16 +1,25 @@
-function getData(chartToUpdate) {
-    $.getJSON('http://sosvetom.ru/_api/get_metrics/?num=100&col=1',
+function updateValue(chartToUpdate) {
+    $.getJSON('http://sosvetom.ru/_api/get_metrics/?num=2&col=1',
         function(data){
             var point = chartToUpdate.series[0].points[0];
             var newVal = data[0][1];
-            if (newVal >= 1100) {
-                chartToUpdate.yAxis[0].setExtremes(0,newVal+100);
+            if (newVal >= chartToUpdate.yAxis[0].max) {
+                chartToUpdate.yAxis[0].setExtremes(0,newVal);
             } else {
-                chartToUpdate.yAxis[0].setExtremes(0,1100);
+                chartToUpdate.yAxis[0].setExtremes(0,chartToUpdate.yAxis[0].max);
             }
             point.update(newVal);
         }
     );  
+    //Отрисовка зелёного plotBand
+    chartToUpdate.yAxis[0].removePlotBand('green');
+    chartToUpdate.yAxis[0].addPlotBand({
+        from: 800,
+        to: chartToUpdate.yAxis[0].max,
+        color: '#55BF3B', // green
+        id: 'green'
+    });
+
     getWeather();
 }
 
@@ -110,15 +119,13 @@ $(document).ready(function() {
             plotBands: [{
                 from: 0,
                 to: 300,
-                color: '#DF5353' // red
+                color: '#DF5353', // red
+                id: 'red'
             }, {
                 from: 300,
                 to: 800,
-                color: '#DDDF0D' // yellow
-            }, {
-                from: 800,
-                to: 1100,
-                color: '#55BF3B' // green
+                color: '#DDDF0D', // yellow
+                id: 'yellow'
             }]
         },
 
@@ -139,12 +146,10 @@ $(document).ready(function() {
     // Обновление значений
     function (chart) {
         if (!chart.renderer.forExport) {
-            getData(chart);
+            updateValue(chart);
             setInterval(function () {
-                getData(chart);       
+                updateValue(chart);       
             }, 60000);
         }
     }); 
-
-
 })
