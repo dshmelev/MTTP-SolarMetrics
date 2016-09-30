@@ -1,25 +1,27 @@
+function getData(chartToUpdate) {
+    $.getJSON('http://sosvetom.ru/_api/get_metrics/?num=100&col=1',
+        function(data){
+            var point = chartToUpdate.series[0].points[0];
+            var newVal = data[0][1];
+            if (newVal >= 1100) {
+                chartToUpdate.yAxis[0].setExtremes(0,newVal+100);
+            } else {
+                chartToUpdate.yAxis[0].setExtremes(0,1100);
+            }
+            point.update(newVal);
+        }
+    );  
+    getWeather();
+}
+
+function getWeather() {
+    var requestWeather = 'http://apidev.accuweather.com/currentconditions/v1/294021.json?language=ru&apikey=hoArfRosT1215';
+    $.getJSON(requestWeather, function(data){
+        $('#weather').html('<img src="img/'+data[0].WeatherIcon+'.svg" height="50">'+Math.round(data[0].Temperature.Metric.Value)+'°C');
+    });
+}
+
 $(document).ready(function() {
-
-    function getData(chartToUpdate) {
-        $.getJSON('http://sosvetom.ru/_api/get_metrics/?num=100&col=1',
-            function(data){
-                var point = chartToUpdate.series[0].points[0];
-                var newVal = data[0][1];
-                if (newVal >= 1100) {
-                    chartToUpdate.yAxis[0].setExtremes(0,newVal+100);
-                } else {
-                    chartToUpdate.yAxis[0].setExtremes(0,1100);
-                }
-                point.update(newVal);
-            });  
-    }
-
-    function getWeather() {
-        var requestWeather = 'http://apidev.accuweather.com/currentconditions/v1/294021.json?language=ru&apikey=hoArfRosT1215';
-        $.getJSON(requestWeather, function(data){
-            $('#weather').html('<img src="img/'+data[0].WeatherIcon+'.svg" height="50">'+Math.round(data[0].Temperature.Metric.Value)+'°C');
-        });
-    }
 
     //Тахометр
     $('#gauge').highcharts({
@@ -129,7 +131,7 @@ $(document).ready(function() {
                     'color': '#707070',
                     'fontSize': '12pt'
                  },
-                 format: '{y} Вт'
+            format: '{y} Вт'
             }
         }]
 
@@ -138,48 +140,11 @@ $(document).ready(function() {
     function (chart) {
         if (!chart.renderer.forExport) {
             getData(chart);
-            getWeather();
             setInterval(function () {
-                getData(chart);
-                getWeather();       
+                getData(chart);       
             }, 60000);
         }
     }); 
 
-    //График за день
-    Highcharts.setOptions({ global: { useUTC : false} })
-  $.getJSON('http://sosvetom.ru/_api/get_metrics/?num=100&col=150', function (data) {
-    $('#chart_24h').highcharts({
-        credits: {
-            enabled: false
-        },
-        chart: {
-            type: 'column', 
-            backgroundColor: null
-        },
-        title: {
-            text: 'Статистика работы за день'
-        },
-        xAxis: {
-            type: 'datetime',
-            tickInterval: 3600 * 1000,
-            //min: ,
-            //max: ,
-        },
-        yAxis: {
-            title: {text: 'Мощность электроэнергии(Вт)'},
-            labels: {enabled: false},
-            gridLineColor: 'transparent', 
-            lineColor: 'transparent'
-        },
-        legend: {
-            enabled: false
-        },
-        series: [{ 
-            name: 'Мощность', 
-            data: data,
-        }]
-    });
-  });
 
 })
