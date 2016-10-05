@@ -1,20 +1,36 @@
+function updateValue(chartToUpdate) {
+    $.getJSON('http://sosvetom.ru/_api/get_metrics/?num=2&col=1',
+        function(data){
+            var point = chartToUpdate.series[0].points[0];
+            var newVal = data[0][1];
+            if (newVal >= chartToUpdate.yAxis[0].max) {
+                chartToUpdate.yAxis[0].setExtremes(0,newVal);
+            } else {
+                chartToUpdate.yAxis[0].setExtremes(0,chartToUpdate.yAxis[0].max);
+            }
+            point.update(newVal);
+        }
+    );  
+    //Отрисовка зелёного plotBand
+    chartToUpdate.yAxis[0].removePlotBand('green');
+    chartToUpdate.yAxis[0].addPlotBand({
+        from: 800,
+        to: chartToUpdate.yAxis[0].max,
+        color: '#55BF3B', // green
+        id: 'green'
+    });
+
+    getWeather();
+}
+
+function getWeather() {
+    var requestWeather = 'http://apidev.accuweather.com/currentconditions/v1/294021.json?language=ru&apikey=hoArfRosT1215';
+    $.getJSON(requestWeather, function(data){
+        $('#weather').html('<img src="img/'+data[0].WeatherIcon+'.svg" height="50">'+Math.round(data[0].Temperature.Metric.Value)+'°C');
+    });
+}
+
 $(document).ready(function() {
-
-    function getData(url, chartToUpdate) {
-        $.getJSON('http://sosvetom.ru/_api/get_metrics/?num=100'+url,
-            function(data){
-                var point = chartToUpdate.series[0].points[0];
-                var newVal = data[0][1];
-                point.update(newVal);
-            });  
-    }
-
-    function getWeather() {
-        var requestWeather = 'http://apidev.accuweather.com/currentconditions/v1/294021.json?language=ru&apikey=hoArfRosT1215';
-        $.getJSON(requestWeather, function(data){
-            $('#weather').html('<img src="img/'+data[0].WeatherIcon+'.svg" height="50">'+Math.round(data[0].Temperature.Metric.Value)+'°C');
-        });
-    }
 
     //Тахометр
     $('#gauge').highcharts({
@@ -28,7 +44,7 @@ $(document).ready(function() {
         },
 
         title: {
-            text: null
+            text: 'Номинальная мощность электроэнергии'
         },
 
         tooltip: {
@@ -79,7 +95,7 @@ $(document).ready(function() {
         // the value axis
         yAxis: {
             min: 0,
-            max: 1300,
+            max: 1100,
 
             minorTickInterval: 'auto',
             minorTickWidth: 1,
@@ -103,15 +119,13 @@ $(document).ready(function() {
             plotBands: [{
                 from: 0,
                 to: 300,
-                color: '#DF5353' // red
+                color: '#DF5353', // red
+                id: 'red'
             }, {
                 from: 300,
                 to: 800,
-                color: '#DDDF0D' // yellow
-            }, {
-                from: 800,
-                to: 1100,
-                color: '#55BF3B' // green
+                color: '#DDDF0D', // yellow
+                id: 'yellow'
             }]
         },
 
@@ -124,7 +138,7 @@ $(document).ready(function() {
                     'color': '#707070',
                     'fontSize': '12pt'
                  },
-                 format: '{y} Вт'
+            format: '{y} Вт'
             }
         }]
 
@@ -132,51 +146,10 @@ $(document).ready(function() {
     // Обновление значений
     function (chart) {
         if (!chart.renderer.forExport) {
-            var request = '&col=1';
-
-            getData(request,chart);
-            getWeather();
+            updateValue(chart);
             setInterval(function () {
-                getData(request,chart);
-                getWeather();       
+                updateValue(chart);       
             }, 60000);
         }
     }); 
-
-    //График за день
-    Highcharts.setOptions({ global: { useUTC : false} })
-  $.getJSON('http://sosvetom.ru/_api/get_metrics/?num=100&col=150', function (data) {
-    $('#chart_24h').highcharts({
-        credits: {
-            enabled: false
-        },
-        chart: {
-            type: 'column', 
-            backgroundColor: null
-        },
-        title: {
-            text: 'Статистика работы за день'
-        },
-        xAxis: {
-            type: 'datetime',
-            tickInterval: 3600 * 1000,
-            //min: ,
-            //max: ,
-        },
-        yAxis: {
-            title: {text: 'Мощность электроэнергии(Вт)'},
-            labels: {enabled: false},
-            gridLineColor: 'transparent', 
-            lineColor: 'transparent'
-        },
-        legend: {
-            enabled: false
-        },
-        series: [{ 
-            name: 'Мощность', 
-            data: data,
-        }]
-    });
-  });
-
 })
