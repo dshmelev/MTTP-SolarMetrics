@@ -18,10 +18,6 @@ if ($num < $col) {
     $num = $col;
 }
 
-$output = [[1476277202000,182],[1476277503000,120],[1476277803000,111],[1476278104000,108]];
-echo_to_json( array_reverse( reduce_array($output, $col) ) );
-exit;
-
 # Logics
 $link = mysql_connect($MYSQL_HOST, $MYSQL_USER, $MYSQL_PASS)
     or fails_with_json( 'mysql_connect: ' . mysql_error() );
