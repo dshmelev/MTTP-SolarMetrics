@@ -2,7 +2,7 @@
 
 function reduce_array($array, $new_len) {
   $len = count($array);
-  if ($len < $new_len) {
+  if ($len <= $new_len) {
     return $array;
   }
   $seperation = $len / $new_len;
