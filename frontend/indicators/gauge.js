@@ -1,5 +1,5 @@
 function updateValue(chartToUpdate) {
-    $.getJSON('http://sosvetom.ru/_api/get_metrics/?num=2&col=1',
+    $.getJSON('http://sosvetom.ru/_api/get_metrics/?num=1&col=1',
         function(data){
             var point = chartToUpdate.series[0].points[0];
             var newVal = data[0][1];
@@ -8,19 +8,22 @@ function updateValue(chartToUpdate) {
             } else {
                 chartToUpdate.yAxis[0].setExtremes(0,chartToUpdate.yAxis[0].max);
             }
+            drawPlotBand(chartToUpdate);
             point.update(newVal);
         }
-    );  
-    //Отрисовка зелёного plotBand
-    chartToUpdate.yAxis[0].removePlotBand('green');
-    chartToUpdate.yAxis[0].addPlotBand({
+    );     
+    getWeather();
+}
+
+//Отрисовка зелёного plotBand
+function drawPlotBand(chart) {
+    chart.yAxis[0].removePlotBand('green');
+    chart.yAxis[0].addPlotBand({
         from: 800,
-        to: chartToUpdate.yAxis[0].max,
+        to: chart.yAxis[0].max,
         color: '#55BF3B', // green
         id: 'green'
     });
-
-    getWeather();
 }
 
 function getWeather() {
@@ -152,4 +155,6 @@ $(document).ready(function() {
             }, 60000);
         }
     }); 
+
+
 })
