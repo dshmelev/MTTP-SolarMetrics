@@ -1,5 +1,5 @@
 function updateValue(chartToUpdate) {
-    $.getJSON('http://sosvetom.ru/_api/get_metrics/?num=1&col=1',
+    $.getJSON('http://sosvetom.ru/_api/get_metrics/?offset=last',
         function(data){
             var point = chartToUpdate.series[0].points[0];
             var newVal = data[0][1];
@@ -11,7 +11,7 @@ function updateValue(chartToUpdate) {
             drawPlotBand(chartToUpdate);
             point.update(newVal);
         }
-    );     
+    );
     getWeather();
 }
 
@@ -54,8 +54,8 @@ $(document).ready(function() {
                 enabled: false
         },
 
-        exporting: { 
-            enabled: false 
+        exporting: {
+            enabled: false
         },
 
         credits: {
@@ -151,10 +151,10 @@ $(document).ready(function() {
         if (!chart.renderer.forExport) {
             updateValue(chart);
             setInterval(function () {
-                updateValue(chart);       
+                updateValue(chart);
             }, 60000);
         }
-    }); 
+    });
 
 
 })

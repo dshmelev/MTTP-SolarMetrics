@@ -15,11 +15,11 @@ $(document).ready(function() {
         credits: {
             enabled: false
         },
-        exporting: { 
-            enabled: false 
+        exporting: {
+            enabled: false
         },
         chart: {
-            type: 'column', 
+            type: 'column',
             backgroundColor: null
         },
         title: {
@@ -36,32 +36,32 @@ $(document).ready(function() {
         legend: {
             enabled: false
         },
-        series: [{ 
+        series: [{
             name: 'Мощность',
 
         }]
     },
     // Обновление значений
     function (chart) {
-        var request = '?num=1440&col=24'
+        var request = '?offset=day'
         if (!chart.renderer.forExport) {
             requestData(chart,request);
             setInterval(function () {
                 requestData(chart,request);
             }, 60000);
         }
-    }); 
+    });
 
     //Статистика за месяц
     $('#chart_month').highcharts({
         credits: {
             enabled: false
         },
-        exporting: { 
-            enabled: false 
+        exporting: {
+            enabled: false
         },
         chart: {
-            type: 'column', 
+            type: 'column',
             backgroundColor: null
         },
         title: {
@@ -78,32 +78,32 @@ $(document).ready(function() {
         legend: {
             enabled: false
         },
-        series: [{ 
+        series: [{
             name: 'Мощность',
 
         }]
     },
 
     function (chart) {
-        var request = '?num=43200&col=30'
+        var request = '?offset=month'
         if (!chart.renderer.forExport) {
             requestData(chart,request);
             setInterval(function () {
                 requestData(chart,request);
             }, 60000);
         }
-    }); 
+    });
 
     //Статистика за год
     $('#chart_year').highcharts({
         credits: {
             enabled: false
         },
-        exporting: { 
-            enabled: false 
+        exporting: {
+            enabled: false
         },
         chart: {
-            type: 'column', 
+            type: 'column',
             backgroundColor: null
         },
         title: {
@@ -120,19 +120,19 @@ $(document).ready(function() {
         legend: {
             enabled: false
         },
-        series: [{ 
+        series: [{
             name: 'Мощность',
 
         }]
     },
-    
+
     function (chart) {
-        var request = '?num=518400&col=12'
+        var request = '?offset=year'
         if (!chart.renderer.forExport) {
             requestData(chart,request);
             setInterval(function () {
                 requestData(chart,request);
             }, 60000);
         }
-    }); 
+    });
 })

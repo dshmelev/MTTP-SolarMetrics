@@ -10,12 +10,17 @@ include 'helpers.php';
 $MULTIPLICATOR = 1.53;
 
 # Variables
-$num = ( isset($_GET['num']) ? $_GET['num'] : null );
-$col = ( isset($_GET['col']) ? $_GET['col'] : 15   );
-is_numeric($num) ?: fails_with_json("num is not numeric!");
-is_numeric($col) ?: fails_with_json("col is not numeric!");
-if ($num < $col) {
-    $num = $col;
+$offset = ( isset($_GET['offset']) ? $_GET['offset'] : 'last' );
+if ($offset == 'last') {
+  $num = 1; $col = 1;
+} elseif ($offset = 'day') {
+  $num = 1440; $col = 24;
+} elseif ($offset = 'month') {
+  $num=43200; $col=30;
+} elseif ($offset = 'year') {
+  $num=518400; $col=12;
+} else {
+  fails_with_json("offset is not valid!");
 }
 
 # Logics
