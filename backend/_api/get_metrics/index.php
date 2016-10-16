@@ -12,13 +12,13 @@ $MULTIPLICATOR = 1.53;
 # Variables
 $offset = ( isset($_GET['offset']) ? $_GET['offset'] : 'last' );
 if ($offset == 'last') {
-  $num = 1; $col = 1;
+  $num = '1 DAY'; $col = 1;
 } elseif ($offset = 'day') {
-  $num = 1440; $col = 24;
+  $num = '1 DAY'; $col = 24;
 } elseif ($offset = 'month') {
-  $num=43200; $col=30;
+  $num='30 DAY'; $col=30;
 } elseif ($offset = 'year') {
-  $num=518400; $col=12;
+  $num='365 DAY'; $col=12;
 } else {
   fails_with_json("offset is not valid!");
 }
@@ -30,7 +30,7 @@ $link = mysql_connect($MYSQL_HOST, $MYSQL_USER, $MYSQL_PASS)
 mysql_select_db($MYSQL_DBASE, $link)
     or fails_with_json( 'mysql_select: ' . mysql_error(), $link );
 
-$query = sprintf('SELECT UNIX_TIMESTAMP(timestamp) as timestamp, value FROM %s ORDER BY id DESC LIMIT %s',
+$query = sprintf('SELECT UNIX_TIMESTAMP(timestamp) as timestamp, value FROM %s WHERE (`timestamp` > DATE_SUB(now(), INTERVAL %s)) ORDER BY id DESC',
   $MYSQL_TABLE_METRICS,
   mysql_real_escape_string($num));
 $result = mysql_query($query) or fails_with_json('mysql_query: ' . mysql_error());
