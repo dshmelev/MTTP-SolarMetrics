@@ -57,8 +57,8 @@ $(document).ready(function() {
         credits: {
             enabled: false
         },
-        exporting: { 
-            enabled: false 
+        exporting: {
+            enabled: false
         },
         chart: {
             type: 'column', 
@@ -78,7 +78,7 @@ $(document).ready(function() {
         legend: {
             enabled: false
         },
-        series: [{ 
+        series: [{
             name: 'Мощность',
 
         }]
@@ -92,18 +92,18 @@ $(document).ready(function() {
                 requestData(chart,request);
             }, 60000);
         }
-    }); 
+    });
 
     //Статистика за год
     $('#chart_year').highcharts({
         credits: {
             enabled: false
         },
-        exporting: { 
-            enabled: false 
+        exporting: {
+            enabled: false
         },
         chart: {
-            type: 'column', 
+            type: 'column',
             backgroundColor: null
         },
         title: {
