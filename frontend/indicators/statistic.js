@@ -15,11 +15,11 @@ $(document).ready(function() {
         credits: {
             enabled: false
         },
-        exporting: { 
-            enabled: false 
+        exporting: {
+            enabled: false
         },
         chart: {
-            type: 'column', 
+            type: 'column',
             backgroundColor: null
         },
         title: {
@@ -120,12 +120,12 @@ $(document).ready(function() {
         legend: {
             enabled: false
         },
-        series: [{ 
+        series: [{
             name: 'Мощность',
 
         }]
     },
-    
+
     function (chart) {
         var request = 'year'
         if (!chart.renderer.forExport) {
@@ -134,5 +134,5 @@ $(document).ready(function() {
                 requestData(chart,request);
             }, 60000);
         }
-    }); 
+    });
 })
