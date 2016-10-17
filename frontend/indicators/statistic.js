@@ -36,7 +36,7 @@ $(document).ready(function() {
         legend: {
             enabled: false
         },
-        series: [{ 
+        series: [{
             name: 'Мощность',
 
         }]
@@ -50,7 +50,7 @@ $(document).ready(function() {
                 requestData(chart,request);
             }, 60000);
         }
-    }); 
+    });
 
     //Статистика за месяц
     $('#chart_month').highcharts({
