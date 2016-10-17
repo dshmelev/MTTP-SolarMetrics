@@ -61,7 +61,7 @@ $(document).ready(function() {
             enabled: false
         },
         chart: {
-            type: 'column', 
+            type: 'column',
             backgroundColor: null
         },
         title: {
