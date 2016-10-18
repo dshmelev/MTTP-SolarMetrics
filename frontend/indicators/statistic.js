@@ -19,7 +19,7 @@ $(document).ready(function() {
             enabled: false 
         },
         chart: {
-            type: 'areaspline', 
+            type: 'areaspline',
             backgroundColor: null
         },
         title: {
@@ -140,7 +140,7 @@ $(document).ready(function() {
             name: 'Мощность'
         }]
     },
-    
+
     function (chart) {
         var request = 'year'
         if (!chart.renderer.forExport) {
