@@ -16,7 +16,7 @@ $(document).ready(function() {
             enabled: false
         },
         exporting: {
-            enabled: false 
+            enabled: false
         },
         chart: {
             type: 'areaspline',
