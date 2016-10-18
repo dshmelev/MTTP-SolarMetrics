@@ -31,7 +31,6 @@ client = Mysql2::Client.new :host => SimpleConfig.mysql.host,
                             :password => SimpleConfig.mysql.pass,
                             :database => SimpleConfig.mysql.dbase
 query = "INSERT INTO #{SimpleConfig.mysql.table} (value) values (#{@sweep_pmax})"
-logger.info "QUERY: #{query}"
-logger.info "PMAX: #{@sweep_pmax}"
+logger.info "Got value PMAX: #{@sweep_pmax}"
 
 client.query(query)
