@@ -12,13 +12,13 @@ $MULTIPLICATOR = 1.53;
 # Variables
 $offset = ( isset($_GET['offset']) ? $_GET['offset'] : 'last' );
 if ($offset == 'last') {
-  $num = '1 DAY';   $group = 'hour';
+  $num = '1 HOUR';  $group = 'day';
 } elseif ($offset == 'day') {
   $num = '1 DAY';   $group = 'hour';
 } elseif ($offset == 'month') {
-  $num = '1 MONTH';  $group = 'day';
+  $num = '1 MONTH'; $group = 'day';
 } elseif ($offset == 'year') {
-  $num = '1 YEAR'; $group = 'month';
+  $num = '1 YEAR';  $group = 'month';
 } else {
   fails_with_json("offset is not valid!");
 }
