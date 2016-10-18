@@ -19,7 +19,7 @@ $(document).ready(function() {
             enabled: false
         },
         chart: {
-            type: 'column',
+            type: 'areaspline',
             backgroundColor: null
         },
         title: {
@@ -36,9 +36,14 @@ $(document).ready(function() {
         legend: {
             enabled: false
         },
+        plotOptions: {
+            areaspline: {
+                lineWidth: 3,
+                fillOpacity: 0.5
+            },
+        },
         series: [{
             name: 'Мощность',
-
         }]
     },
     // Обновление значений
@@ -61,7 +66,7 @@ $(document).ready(function() {
             enabled: false
         },
         chart: {
-            type: 'column',
+            type: 'areaspline',
             backgroundColor: null
         },
         title: {
@@ -78,9 +83,14 @@ $(document).ready(function() {
         legend: {
             enabled: false
         },
+        plotOptions: {
+            areaspline: {
+                lineWidth: 3,
+                fillOpacity: 0.5
+            },
+        },
         series: [{
             name: 'Мощность',
-
         }]
     },
 
@@ -103,7 +113,7 @@ $(document).ready(function() {
             enabled: false
         },
         chart: {
-            type: 'column',
+            type: 'areaspline',
             backgroundColor: null
         },
         title: {
@@ -120,9 +130,14 @@ $(document).ready(function() {
         legend: {
             enabled: false
         },
+        plotOptions: {
+            areaspline: {
+                lineWidth: 3,
+                fillOpacity: 0.5
+            },
+        },
         series: [{
-            name: 'Мощность',
-
+            name: 'Мощность'
         }]
     },
 
