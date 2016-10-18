@@ -9,7 +9,15 @@ function requestData(chartToUpdate,url) {
 }
 
 $(document).ready(function() {
-    Highcharts.setOptions({ global: { useUTC : false} })
+    Highcharts.setOptions({
+        global: { useUTC : false},
+        lang: {
+            loading: 'Загрузка...',
+            months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+            weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+            shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+        }
+    })
     //Статистика за день
     $('#chart_24h').highcharts({
         credits: {
