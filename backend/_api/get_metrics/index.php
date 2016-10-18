@@ -30,7 +30,7 @@ $link = mysql_connect($MYSQL_HOST, $MYSQL_USER, $MYSQL_PASS)
 mysql_select_db($MYSQL_DBASE, $link)
     or fails_with_json( 'mysql_select: ' . mysql_error(), $link );
 
-$query = sprintf('SELECT UNIX_TIMESTAMP(timestamp) as timestamp, SUM(value) FROM %s WHERE (`timestamp` > DATE_SUB(now(), INTERVAL %s)) GROUP BY %s(timestamp) ORDER BY id DESC',
+$query = sprintf('SELECT UNIX_TIMESTAMP(timestamp) as timestamp, SUM(value) as value FROM %s WHERE (`timestamp` > DATE_SUB(now(), INTERVAL %s)) GROUP BY %s(timestamp) ORDER BY id DESC',
   $MYSQL_TABLE_METRICS,
   mysql_real_escape_string($num),
   mysql_real_escape_string($group));
