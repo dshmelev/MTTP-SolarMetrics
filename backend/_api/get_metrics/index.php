@@ -30,7 +30,7 @@ $link = mysql_connect($MYSQL_HOST, $MYSQL_USER, $MYSQL_PASS)
 mysql_select_db($MYSQL_DBASE, $link)
     or fails_with_json( 'mysql_select: ' . mysql_error(), $link );
 
-$avg_query = "SELECT UNIX_TIMESTAMP(timestamp) as timestamp, ROUND(AVG(value)) as value  FROM SolarMetrics GROUP BY year(timestamp),month(timestamp),day(timestamp),hour(timestamp)";
+$avg_query = "SELECT timestamp, ROUND(AVG(value)) as value FROM SolarMetrics GROUP BY year(timestamp),month(timestamp),day(timestamp),hour(timestamp)";
 $query = sprintf('SELECT UNIX_TIMESTAMP(timestamp) as timestamp, SUM(value) as value FROM (%s) AS avg_table WHERE (`timestamp` > DATE_SUB(now(), INTERVAL %s)) GROUP BY %s ORDER BY timestamp DESC',
   $avg_query,
   mysql_real_escape_string($num),
