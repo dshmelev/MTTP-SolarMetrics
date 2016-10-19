@@ -13,12 +13,12 @@ $MULTIPLICATOR = 1.53;
 $offset = ( isset($_GET['offset']) ? $_GET['offset'] : 'last' );
 if ($offset == 'last') {
   $num = '1 HOUR';  $group = 'day';
-} elseif ($offset == 'day') {
-  $num = '3 DAY';   $group = 'hour';
+} elseif ($offset == 'day(timestamp)') {
+  $num = '3 DAY';   $group = 'day(timestamp), hour(timestamp)';
 } elseif ($offset == 'month') {
-  $num = '1 MONTH'; $group = 'day';
+  $num = '1 MONTH'; $group = 'day(timestamp)';
 } elseif ($offset == 'year') {
-  $num = '1 YEAR';  $group = 'month';
+  $num = '1 YEAR';  $group = 'month(timestamp)';
 } else {
   fails_with_json("offset is not valid!");
 }
@@ -30,7 +30,7 @@ $link = mysql_connect($MYSQL_HOST, $MYSQL_USER, $MYSQL_PASS)
 mysql_select_db($MYSQL_DBASE, $link)
     or fails_with_json( 'mysql_select: ' . mysql_error(), $link );
 
-$query = sprintf('SELECT UNIX_TIMESTAMP(timestamp) as timestamp, SUM(value) as value FROM %s WHERE (`timestamp` > DATE_SUB(now(), INTERVAL %s)) GROUP BY %s(timestamp) ORDER BY id DESC',
+$query = sprintf('SELECT UNIX_TIMESTAMP(timestamp) as timestamp, SUM(value) as value FROM %s WHERE (`timestamp` > DATE_SUB(now(), INTERVAL %s)) GROUP BY %s ORDER BY id DESC',
   $MYSQL_TABLE_METRICS,
   mysql_real_escape_string($num),
   mysql_real_escape_string($group));
