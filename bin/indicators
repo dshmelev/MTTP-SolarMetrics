@@ -17,7 +17,19 @@ end
 begin
   ModBus::TCPClient.new(SimpleConfig.modbus.host, SimpleConfig.modbus.port) do |cl|
     cl.with_slave(1) do |slave|
-      @sweep_pmax = slave.holding_registers[60][0]
+      vol_scale_high = slave.holding_registers[0][0]
+      vol_scale_low  = slave.holding_registers[1][0]
+      cur_scale_high = slave.holding_registers[2][0]
+      cur_scale_low  = slave.holding_registers[3][0]
+
+      vscale = vol_scale_high.to_f + ( vol_scale_low.to_f / (2**16) )
+      cscale = cur_scale_high.to_f + ( cur_scale_low.to_f / (2**16) )
+      wscale = vscale * cscale
+
+      raw_value = slave.holding_registers[60][0]
+
+      value = raw_value * wscale / (2**17)
+      @sweep_pmax = value.to_i
     end
   end
 rescue ModBus::Errors::ModBusTimeout, Errno::ECONNREFUSED => e
