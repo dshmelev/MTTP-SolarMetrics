@@ -164,7 +164,6 @@ $(document).ready(function() {
         },
         plotOptions: {
             series: {
-                pointWidth: 50,
                 groupPadding: 0
             }
         },
