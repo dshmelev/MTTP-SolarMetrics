@@ -19,6 +19,8 @@ if ($offset == 'last') {
   $num = '1 MONTH'; $group = 'day(timestamp)';
 } elseif ($offset == 'year') {
   $num = '1 YEAR';  $group = 'month(timestamp)';
+} elseif ($offset == 'all') {
+  $num = '10 YEAR';  $group = 'month(timestamp)';
 } else {
   fails_with_json("offset is not valid!");
 }
