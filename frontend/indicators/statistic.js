@@ -116,7 +116,6 @@ $(document).ready(function() {
         },
         plotOptions: {
             series: {
-                pointWidth: 25,
                 groupPadding: 0
             }
         },
