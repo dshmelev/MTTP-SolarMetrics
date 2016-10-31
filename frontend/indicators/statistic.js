@@ -28,7 +28,7 @@ $(document).ready(function() {
             enabled: false
         },
         chart: {
-            type: 'column',
+            type: 'spline',
             backgroundColor: null
         },
         rangeSelector: {
@@ -54,16 +54,18 @@ $(document).ready(function() {
             tickInterval: 3600 * 1000
         },
         yAxis: {
-            title: {text: 'Мощность генерации (Вт)'},
+            opposite: false,
+            title: {
+                text: 'Мощность генерации (Вт)'
+            },
             labels: {enabled: false}
         },
         legend: {
             enabled: false
         },
         plotOptions: {
-            areaspline: {
+            spline: {
                 lineWidth: 3,
-                fillOpacity: 0.5,
                 marker: {
                     enabled: false
                 }
@@ -104,8 +106,7 @@ $(document).ready(function() {
             text: 'Посуточный график генерации (Вт*Ч/день)'
         },
         xAxis: {
-            type: 'datetime',
-            tickInterval: 30 * 3600 * 1000
+            type: 'datetime'
         },
         yAxis: {
             title: {text: 'Мощность генерации (Вт)'},
@@ -151,8 +152,7 @@ $(document).ready(function() {
             text: 'Статистика с момента запуска сервиса'
         },
         xAxis: {
-            type: 'datetime',
-            tickInterval: 30 * 24 * 3600 * 1000
+            type: 'datetime'
         },
         yAxis: {
             title: {text: 'Мощность генерации (Вт)'},
