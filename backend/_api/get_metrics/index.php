@@ -14,6 +14,8 @@ $offset = ( isset($_GET['offset']) ? $_GET['offset'] : 'last' );
 if ($offset == 'last') {
   $num = '1 HOUR';  $group = 'day(timestamp)';
 } elseif ($offset == 'day') {
+  $num = '1 DAY';   $group = 'day(timestamp), hour(timestamp)';
+} elseif ($offset == '3day') {
   $num = '3 DAY';   $group = 'day(timestamp), hour(timestamp)';
 } elseif ($offset == 'month') {
   $num = '1 MONTH'; $group = 'day(timestamp)';
