@@ -72,7 +72,7 @@ $(document).ready(function() {
     });
 
     /*function (chart) {
-        var request = 'month'
+        var request = 'day'
         if (!chart.renderer.forExport) {
             requestData(chart,request);
             setInterval(function () {
