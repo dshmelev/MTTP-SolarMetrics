@@ -19,6 +19,67 @@ $(document).ready(function() {
             rangeSelectorZoom: ['Увеличить:']
         }
     })
+    //Кнопка на главной
+    $('#chart-button').highcharts({
+        credits: {
+            enabled: false
+        },
+        exporting: {
+            enabled: false
+        },
+        chart: {
+            type: 'column',
+            backgroundColor: null
+        },
+        title: {
+            text:'',
+            style: {
+                display: 'none'
+            }
+        },
+        tooltip: {
+            enabled: false
+        },
+        xAxis: {
+            type: 'datetime',
+            gridLineWidth: 0,
+            tickWidth: 0,
+            lineWidth: 0,
+            labels: {enabled: false}
+        },
+        yAxis: {
+            title: {
+                text: '',
+                style: {
+                    display: 'none'
+                }
+            },
+            gridLineWidth: 0,
+            labels: {enabled: false}
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                groupPadding: 0
+            }
+        },
+        series: [{
+            color: '#fff'
+        }]
+    },
+
+    function (chart) {
+        var request = 'day'
+        if (!chart.renderer.forExport) {
+            requestData(chart,request);
+            setInterval(function () {
+                requestData(chart,request);
+            }, 60000);
+        }
+    });
+
     //Онлайн профиль генерации
     $('#chart_24h').highcharts('StockChart',{
         credits: {
