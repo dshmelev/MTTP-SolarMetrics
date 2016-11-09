@@ -142,7 +142,7 @@ $(document).ready(function() {
     },
     // Обновление значений
     function (chart) {
-        var request = 'day'
+        var request = '3day'
         if (!chart.renderer.forExport) {
             requestData(chart,request);
             setInterval(function () {
