@@ -68,8 +68,7 @@ $(document).ready(function() {
         series: [{
             color: '#fff'
         }]
-    });
-
+    },
     function (chart) {
         var request = 'day'
         if (!chart.renderer.forExport) {
