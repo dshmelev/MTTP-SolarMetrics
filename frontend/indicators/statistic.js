@@ -66,7 +66,9 @@ $(document).ready(function() {
             }
         },
         series: [{
-            color: '#fff'
+            color: '#fff',
+            borderWidth: 0,
+            pointWidth: 3
         }]
     },
     function (chart) {
